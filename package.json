@@ -18,7 +18,8 @@
     "license": "license-checker --production --summary",
     "storybook": "start-storybook -c ./src/test/storybook/config -p 6006",
     "storybook:build": "build-storybook -c ./src/test/storybook/config",
-    "ws-server": "node ./tools/WebSocketServer.js"
+    "ws-server": "node ./tools/WebSocketServer.js",
+    "ws-client": "npx http-server ./tools"
   },
   "husky": {
     "hooks": {

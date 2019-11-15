@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebSocket Client</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="Description" content="This TODO application is a demo for my Web Frontend boilerplate." />
+    <meta name="author" content="diescake" />
+
+    <style>
+      input,
+      button {
+        padding: 5px 3px;
+        border: solid 1px lightgray;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Hello WebSocket World !!</h1>
+    <h2>Send data</h2>
+    <input id="input" type="text" value="はろーはろー" />
+    <button id="send" type="button">send</button>
+
+    <h2>Received data</h2>
+    <div id="result"></div>
+
+    <script>
+      const eResult = document.getElementById('result')
+      const eSend = document.getElementById('send')
+      const eInput = document.getElementById('input')
+
+      const socket = new WebSocket('ws://localhost:8000')
+
+      socket.addEventListener('open', e => {
+        eResult.innerText += 'connected !!\n'
+      })
+
+      socket.addEventListener('message', e => {
+        eResult.innerText += `${e.data}\n`
+      })
+
+      eSend.addEventListener('click', e => {
+        socket.send(eInput.value)
+      })
+    </script>
+  </body>
+</html>
