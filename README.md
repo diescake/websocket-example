@@ -1,6 +1,6 @@
-# websocket-sample
+# websocket-example
 
-## Simple
+## Simple examples
 
 ### Launch WebSocket server
 
