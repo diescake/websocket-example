@@ -1,17 +1,50 @@
 import React, { ReactNode, FC, useEffect } from 'react'
-import { RouteComponentProps, withRouter } from 'react-router'
+import { connect } from 'react-redux'
+import { addTodo, TodoDispatcher } from '@/app/actions/todo'
 
-interface Props {
+const socket = new WebSocket('ws://localhost:8000')
+
+interface PassedProps {
   children: ReactNode
 }
-type AppControllerProps = Props & RouteComponentProps
+
+interface DispatchProps {
+  readonly addTodo: TodoDispatcher['addTodo']
+}
+
+type AppControllerProps = PassedProps & DispatchProps
+
+const mapDispatchToProps: DispatchProps = {
+  addTodo,
+}
 
 const AppController: FC<AppControllerProps> = (props: AppControllerProps) => {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [props.location.pathname])
+    const f = () => {
+      console.log('connected')
+    }
+
+    socket.addEventListener('open', f)
+
+    return () => {
+      socket.removeEventListener('open', f)
+    }
+  }, [])
+
+  useEffect(() => {
+    const f = (e: any) => {
+      const json = JSON.parse(e.data)
+      props.addTodo(json.message)
+    }
+
+    socket.addEventListener('message', f)
+
+    return () => {
+      socket.removeEventListener('message', f)
+    }
+  }, [])
 
   return <>{props.children}</>
 }
 
-export default withRouter(AppController)
+export default connect(null, mapDispatchToProps)(AppController)

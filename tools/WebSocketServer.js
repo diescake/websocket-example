@@ -16,8 +16,6 @@ wss.on('connection', ws => {
     console.log('disconnected !!')
   })
 
-  ws.send('connected !!')
-
   setInterval(() => {
     ws.send(JSON.stringify(DUMMY_DATA))
   }, 3000)
