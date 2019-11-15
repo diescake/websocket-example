@@ -28,8 +28,6 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "yarn lint",
-      "yarn test --findRelatedTests",
-      "yarn storybook:build",
       "git add"
     ],
     "*.{sass,scss}": [
