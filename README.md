@@ -1,5 +1,11 @@
 # websocket-example
 
+## Installation
+
+```sh
+$ yarn
+```
+
 ## Simple examples
 
 The example codes are in [./tools](https://github.com/diescake/websocket-example/tree/master/tools)
